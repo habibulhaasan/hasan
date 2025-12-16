@@ -6,243 +6,302 @@
     <title>Habibul Hasan Hasib - Digital Business Card</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;800&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
         /* Custom Font Setup */
-        .font-serif-custom {
-            font-family: 'Cinzel', serif;
-        }
-        .font-sans-custom {
-            font-family: 'Lato', sans-serif;
-        }
+        .font-serif-custom { font-family: 'Cinzel', serif; }
+        .font-sans-custom { font-family: 'Lato', sans-serif; }
 
         /* Textured Paper Background */
         .bg-texture {
             background-color: #f7f5f0;
             background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23noise)' opacity='0.08'/%3E%3C/svg%3E");
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            transition: transform 0.1s ease-out;
+            transform-style: preserve-3d;
         }
 
-        /* Custom SVG Brackets for Email */
-        .custom-brace-left {
-            background-image: url("data:image/svg+xml,%3Csvg width='15' height='100' viewBox='0 0 15 100' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M14 1C7 1 1 5 1 15V42C1 46 0 48 -2 50C0 52 1 54 1 58V85C1 95 7 99 14 99' stroke='%2364748b' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
+        /* Standard Curly Braces (2nd Bracket) SVG */
+        .curly-brace-left {
+            background-image: url("data:image/svg+xml,%3Csvg width='20' height='100' viewBox='0 0 20 100' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20 1 C10 1 5 10 5 25 V40 C5 48 0 50 0 50 C0 50 5 52 5 60 V75 C5 90 10 99 20 99' stroke='%2364748b' stroke-width='1.5' stroke-linecap='round' fill='none'/%3E%3C/svg%3E");
             background-repeat: no-repeat;
             background-size: 100% 100%;
-            width: 15px;
         }
-
-        .custom-brace-right {
-            background-image: url("data:image/svg+xml,%3Csvg width='15' height='100' viewBox='0 0 15 100' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1C8 1 14 5 14 15V42C14 46 15 48 17 50C15 52 14 54 14 58V85C14 95 8 99 1 99' stroke='%2364748b' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
+        .curly-brace-right {
+            background-image: url("data:image/svg+xml,%3Csvg width='20' height='100' viewBox='0 0 20 100' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 1 C10 1 15 10 15 25 V40 C15 48 20 50 20 50 C20 50 15 52 15 60 V75 C15 90 10 99 0 99' stroke='%2364748b' stroke-width='1.5' stroke-linecap='round' fill='none'/%3E%3C/svg%3E");
             background-repeat: no-repeat;
             background-size: 100% 100%;
-            width: 15px;
         }
 
-        /* Email Provider Hover Effects */
+        /* Email Provider Interactive Styles */
         .email-provider {
-            transition: all 0.2s ease;
+            transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px; 
         }
         .email-provider:hover {
-            transform: scale(1.05);
-            font-weight: bold;
+            transform: translateX(5px) scale(1.02);
+            font-weight: 700;
+            color: #334155;
         }
-        .gmail:hover { color: #EA4335; }
-        .yahoo:hover { color: #6001D2; }
-        .hotmail:hover { color: #0078D4; }
-        .outlook:hover { color: #0078D4; }
-        .proton:hover { color: #6D4AFF; }
-
-        /* Notification Toast */
-        #toast {
-            visibility: hidden;
-            min-width: 250px;
-            background-color: #333;
-            color: #fff;
-            text-align: center;
-            border-radius: 8px;
-            padding: 12px;
-            position: fixed;
-            z-index: 50;
-            left: 50%;
-            bottom: 30px;
-            transform: translateX(-50%);
-            font-size: 14px;
-            opacity: 0;
-            transition: opacity 0.3s, bottom 0.3s;
-        }
-        #toast.show {
-            visibility: visible;
-            opacity: 1;
-            bottom: 50px;
-        }
-
-        /* Number Overlap Grid */
+        
+        /* Number Grid Layout */
         .number-grid {
             display: grid;
             grid-template-columns: auto auto auto;
-            grid-template-rows: 30px auto 30px;
-            column-gap: 8px; /* Slight gap between number blocks */
+            grid-template-rows: 15px auto 15px;
+            column-gap: 5px; 
             align-items: center;
-            justify-content: center;
         }
         
         /* Bracket connect lines */
         .bracket-line-top {
-            border-top: 2px solid #94a3b8;
-            border-left: 2px solid #94a3b8;
-            border-right: 2px solid #94a3b8;
-            border-top-left-radius: 10px;
-            border-top-right-radius: 10px;
+            border-top: 1.5px solid #64748b;
+            border-left: 1.5px solid #64748b;
+            border-right: 1.5px solid #64748b;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
             height: 100%;
-            margin-bottom: -5px; /* Pull closer to text */
+            margin-bottom: -4px; 
             position: relative;
+            transition: all 0.3s ease;
         }
 
         .bracket-line-bottom {
-            border-bottom: 2px solid #94a3b8;
-            border-left: 2px solid #94a3b8;
-            border-right: 2px solid #94a3b8;
-            border-bottom-left-radius: 10px;
-            border-bottom-right-radius: 10px;
+            border-bottom: 1.5px solid #64748b;
+            border-left: 1.5px solid #64748b;
+            border-right: 1.5px solid #64748b;
+            border-bottom-left-radius: 8px;
+            border-bottom-right-radius: 8px;
             height: 100%;
-            margin-top: -5px; /* Pull closer to text */
+            margin-top: -4px; 
             position: relative;
+            transition: all 0.3s ease;
         }
+
+        .number-grid:hover .bracket-line-top { border-color: #475569; }
+        .number-grid:hover .bracket-line-bottom { border-color: #475569; }
         
-        /* Icon positioning on brackets */
         .bracket-icon {
             position: absolute;
-            background-color: #f7f5f0; /* Matches bg-texture color approximately */
+            background-color: #f7f5f0; 
             padding: 0 4px;
             left: 50%;
             transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 20;
         }
-        .top-icon { top: -14px; }
-        .bottom-icon { bottom: -14px; }
+        .top-icon { top: -10px; }
+        .bottom-icon { bottom: -10px; }
 
+        /* Notification Toast */
+        #toast {
+            visibility: hidden;
+            background-color: rgba(30, 41, 59, 0.9);
+            backdrop-filter: blur(4px);
+            color: #fff;
+            text-align: center;
+            border-radius: 8px;
+            padding: 10px 20px;
+            position: fixed;
+            z-index: 100;
+            left: 50%;
+            bottom: 20px;
+            transform: translateX(-50%) translateY(20px);
+            font-size: 13px;
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+        #toast.show { visibility: visible; opacity: 1; transform: translateX(-50%) translateY(0); bottom: 40px; }
+
+        /* Mobile Scale Utility - REFINED SIZES TO PREVENT OVERLAP */
+        .responsive-text { font-size: clamp(0.7rem, 1.6vw, 1rem); }
+        
+        /* Hierarchy Adjustments - Tamed upper limits */
+        .responsive-header { font-size: clamp(1.1rem, 3.5vw, 2.8rem); } 
+        .responsive-sub { font-size: clamp(0.8rem, 1.8vw, 1.4rem); } 
+        .responsive-number { font-size: clamp(0.9rem, 2.2vw, 1.8rem); } 
+        .responsive-email { font-size: clamp(0.7rem, 1.6vw, 1.2rem); } 
+        .responsive-social { font-size: clamp(0.8rem, 1.5vw, 1.2rem); }
+        .responsive-website { font-size: clamp(0.7rem, 1.4vw, 1.1rem); }
+
+        /* Grid Areas for the Card - Adjusted ratio */
+        .card-layout {
+            display: grid;
+            grid-template-columns: 40% 60%;
+            grid-template-rows: auto 1fr;
+            height: 100%;
+        }
+
+        /* Animations */
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .animate-left { animation: slideInLeft 0.8s ease-out forwards; opacity: 0; }
+        .animate-right { animation: slideInRight 0.8s ease-out 0.2s forwards; opacity: 0; }
+        .animate-up { animation: fadeInUp 0.8s ease-out 0.4s forwards; opacity: 0; }
+        
+        .social-icon-btn {
+            transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), color 0.2s;
+        }
+        .social-icon-btn:hover {
+            transform: translateY(-3px) scale(1.1);
+        }
     </style>
 </head>
-<body class="bg-gray-100 flex items-center justify-center min-h-screen p-2 md:p-4">
+<body class="bg-gray-200 min-h-screen flex items-center justify-center p-2 md:p-6 overflow-hidden perspective-1000">
 
-    <!-- Card Container -->
-    <div class="bg-texture w-full max-w-xl rounded-2xl shadow-2xl overflow-hidden relative border border-gray-200">
+    <!-- Card Container - Reduced max-width for tighter layout -->
+    <div id="card" class="bg-texture relative w-full max-w-[700px] aspect-[1.85/1] rounded-xl shadow-2xl overflow-hidden border border-gray-300">
         
-        <!-- Decorative Top Corner Sheen -->
-        <div class="absolute top-0 right-0 w-32 h-32 bg-white opacity-20 rounded-bl-full pointer-events-none"></div>
+        <!-- Background Swoosh (SVG) -->
+        <div class="absolute inset-0 pointer-events-none z-0 opacity-40">
+            <svg class="w-full h-full" viewBox="0 0 500 280" preserveAspectRatio="none">
+                <path d="M-10,120 Q250,80 510,130" fill="none" stroke="#94a3b8" stroke-width="1.5" />
+            </svg>
+        </div>
 
-        <div class="p-6 md:p-12 relative z-10">
+        <div class="card-layout relative z-10 w-full h-full p-4 md:p-8">
             
-            <!-- Header Section -->
-            <div class="mb-10 text-center md:text-left">
-                <h1 class="text-3xl md:text-4xl font-serif-custom text-slate-700 font-bold tracking-wide leading-tight uppercase">
+            <!-- TOP LEFT: Name & Identity (Stays in corner) -->
+            <div class="flex flex-col justify-start pt-2 md:pt-4 pl-1 md:pl-2 animate-left">
+                <h1 class="font-serif-custom text-slate-800 font-extrabold uppercase responsive-header leading-tight whitespace-nowrap drop-shadow-sm">
                     Habibul Hasan Hasib
                 </h1>
-                <p class="text-xl text-slate-500 font-sans-custom mt-2 font-medium">
+                <p class="text-slate-500 font-sans-custom responsive-sub mt-2 tracking-wide font-medium">
                     Pharmacist
                 </p>
-            </div>
 
-            <!-- Complex Number Layout Section -->
-            <div class="flex justify-center md:justify-end mb-12 mr-0 md:mr-4">
-                <div class="number-grid">
-                    
-                    <!-- Row 1: Top Bracket (Spans Col 1 & 2) -->
-                    <div class="col-start-1 col-end-3 h-full relative">
-                        <div class="bracket-line-top">
-                            <a href="https://wa.me/8801601767234" target="_blank" class="bracket-icon top-icon text-green-600 hover:scale-110 transition-transform cursor-pointer" title="WhatsApp: 01601767234">
-                                <i class="fab fa-whatsapp text-2xl"></i>
-                            </a>
-                        </div>
-                    </div>
-                    <!-- Empty Cell Row 1 Col 3 -->
-                    <div></div>
-
-                    <!-- Row 2: The Numbers -->
-                    <div class="text-2xl md:text-4xl font-sans-custom text-slate-700 font-bold tracking-wide pt-1 pb-1">016</div>
-                    <div class="text-2xl md:text-4xl font-sans-custom text-slate-700 font-bold tracking-wide pt-1 pb-1">01767234</div>
-                    <div class="text-2xl md:text-4xl font-sans-custom text-slate-700 font-bold tracking-wide pt-1 pb-1">671</div>
-
-                    <!-- Row 3: Empty Cell Row 3 Col 1 -->
-                    <div></div>
-                    <!-- Bottom Bracket (Spans Col 2 & 3) -->
-                    <div class="col-start-2 col-end-4 h-full relative">
-                         <div class="bracket-line-bottom">
-                            <a href="tel:+8801767234671" class="bracket-icon bottom-icon text-slate-600 hover:text-blue-600 hover:scale-110 transition-transform cursor-pointer" title="Call: 01767234671">
-                                <i class="fas fa-phone text-xl transform rotate-90"></i>
-                            </a>
-                         </div>
-                    </div>
-
+                <!-- Website Address -->
+                <div class="mt-4 md:mt-6 animate-up" style="animation-delay: 0.6s;">
+                    <a href="https://habibulhasan.art.blog" target="_blank" class="flex items-center gap-2 text-slate-500 hover:text-slate-800 transition-colors group w-max">
+                        <i class="fas fa-globe responsive-website group-hover:rotate-12 transition-transform text-slate-400 group-hover:text-slate-600"></i>
+                        <span class="font-sans-custom responsive-website font-medium border-b border-transparent group-hover:border-slate-800 transition-colors">habibulhasan.art.blog</span>
+                    </a>
                 </div>
             </div>
 
-            <!-- Email & Social Section -->
-            <div class="mt-8 flex flex-col md:flex-row items-center justify-center md:justify-between gap-6">
+            <!-- RIGHT COLUMN: Contact Info (Centered Vertically and Pushed Down) -->
+            <div class="flex flex-col justify-center md:justify-end h-full pl-2 gap-2 md:gap-4 pt-2 md:pb-8"> 
                 
-                <!-- Email Construction Kit -->
-                <div class="flex items-center text-slate-700 font-sans-custom text-lg md:text-xl">
-                    <div class="font-medium mr-2 text-slate-600 text-sm md:text-base">habibulhaasan@</div>
-                    
-                    <!-- Left Brace -->
-                    <div class="custom-brace-left h-28 md:h-32 w-4"></div>
+                <!-- 1. Numbers Block -->
+                <div class="flex justify-end items-center animate-right">
+                    <div class="number-grid group">
+                        <!-- Top Bracket (WhatsApp) -->
+                        <div class="col-span-2 h-full relative">
+                            <div class="bracket-line-top">
+                                <a href="https://wa.me/8801601767234" target="_blank" class="bracket-icon top-icon text-green-600 hover:scale-110 transition-transform">
+                                    <i class="fab fa-whatsapp responsive-text"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div></div> 
 
-                    <!-- Email Providers List -->
-                    <div class="flex flex-col gap-1 px-2 text-sm md:text-lg font-medium text-slate-500">
-                        <div class="flex items-center gap-2 email-provider gmail" onclick="copyEmail('gmail.com')">
-                            <i class="fab fa-google text-xs w-4"></i> gmail
+                        <!-- Numbers -->
+                        <div class="font-sans-custom text-slate-700 font-bold tracking-wide responsive-number px-1 group-hover:text-slate-900 transition-colors">016</div>
+                        <div class="font-sans-custom text-slate-700 font-bold tracking-wide responsive-number px-1 group-hover:text-slate-900 transition-colors">01767234</div>
+                        <div class="font-sans-custom text-slate-700 font-bold tracking-wide responsive-number px-1 group-hover:text-slate-900 transition-colors">671</div>
+
+                        <!-- Bottom Bracket (Phone) -->
+                        <div></div> 
+                        <div class="col-span-2 h-full relative">
+                             <div class="bracket-line-bottom">
+                                <a href="tel:+8801767234671" class="bracket-icon bottom-icon text-slate-600 hover:text-blue-600 hover:scale-110 transition-transform">
+                                    <i class="fas fa-phone responsive-text transform rotate-90"></i>
+                                </a>
+                             </div>
                         </div>
-                        <div class="flex items-center gap-2 email-provider yahoo" onclick="copyEmail('yahoo.com')">
-                            <i class="fab fa-yahoo text-xs w-4"></i> yahoo
+                    </div>
+                </div>
+
+                <!-- 2. Email & Socials Block -->
+                <div class="flex items-center justify-end animate-up">
+                    
+                    <!-- Handle & Social Icons Group -->
+                    <div class="relative flex flex-col items-end mr-2 justify-center">
+                        <!-- Handle -->
+                        <div class="font-medium text-slate-600 responsive-email mb-0.5 pt-2">habibulhaasan@</div>
+                        
+                        <!-- Social Icons Row -->
+                        <div class="absolute top-full right-0 mt-1 flex gap-2 text-slate-400 justify-end w-max">
+                            <a href="https://facebook.com/habibulhaasan" target="_blank" class="social-icon-btn hover:text-blue-600" title="Facebook">
+                                <i class="fab fa-facebook responsive-social"></i>
+                            </a>
+                            <a href="https://t.me/habibulhaasan" target="_blank" class="social-icon-btn hover:text-sky-500" title="Telegram">
+                                <i class="fab fa-telegram responsive-social"></i>
+                            </a>
+                            <a href="https://x.com/habibulhaasan" target="_blank" class="social-icon-btn hover:text-black" title="X (Twitter)">
+                                <i class="fab fa-twitter responsive-social"></i>
+                            </a>
+                            <a href="https://linkedin.com/in/habibulhaasan" target="_blank" class="social-icon-btn hover:text-blue-700" title="LinkedIn">
+                                <i class="fab fa-linkedin responsive-social"></i>
+                            </a>
                         </div>
-                        <div class="flex items-center gap-2 email-provider hotmail" onclick="copyEmail('hotmail.com')">
-                            <i class="fas fa-envelope text-xs w-4"></i> hotmail
+                    </div>
+                    
+                    <!-- Left Curly Brace -->
+                    <div class="curly-brace-left w-4 md:w-5" style="height: clamp(80px, 20vw, 150px);"></div>
+
+                    <!-- Email List -->
+                    <div class="flex flex-col justify-center px-2 text-slate-500 font-medium responsive-email w-32 md:w-40 pt-2 gap-1">
+                        <div class="email-provider gmail group" onclick="copyEmail('gmail.com')">
+                            <i class="fab fa-google text-sm group-hover:text-[#EA4335] transition-colors"></i> gmail
                         </div>
-                        <div class="flex items-center gap-2 email-provider outlook" onclick="copyEmail('microsoft.com')">
-                            <i class="fab fa-microsoft text-xs w-4"></i> outlook
+                        <div class="email-provider yahoo group" onclick="copyEmail('yahoo.com')">
+                            <i class="fab fa-yahoo text-sm group-hover:text-[#6001D2] transition-colors"></i> yahoo
                         </div>
-                        <div class="flex items-center gap-2 email-provider proton" onclick="copyEmail('protonmail.com')">
-                            <i class="fas fa-lock text-xs w-4"></i> protonmail
+                        <div class="email-provider hotmail group" onclick="copyEmail('hotmail.com')">
+                            <i class="fas fa-envelope text-sm group-hover:text-[#0078D4] transition-colors"></i> hotmail
+                        </div>
+                        <div class="email-provider outlook group" onclick="copyEmail('microsoft.com')">
+                            <i class="fab fa-microsoft text-sm group-hover:text-[#0078D4] transition-colors"></i> outlook
+                        </div>
+                        <div class="email-provider proton group" onclick="copyEmail('protonmail.com')">
+                            <i class="fas fa-lock text-sm group-hover:text-[#6D4AFF] transition-colors"></i> protonmail
                         </div>
                     </div>
 
-                    <!-- Right Brace -->
-                    <div class="custom-brace-right h-28 md:h-32 w-4"></div>
+                    <!-- Right Curly Brace -->
+                    <div class="curly-brace-right w-4 md:w-5" style="height: clamp(80px, 20vw, 150px);"></div>
 
-                    <div class="font-medium ml-2 text-slate-600 text-sm md:text-base">.com</div>
-                </div>
-
-                <!-- Social Icons -->
-                <div class="flex md:flex-col gap-5 mt-4 md:mt-0 md:ml-4 text-slate-500">
-                     <a href="#" class="hover:text-blue-600 transition-colors"><i class="fab fa-facebook fa-xl"></i></a>
-                     <a href="#" class="hover:text-sky-500 transition-colors"><i class="fab fa-telegram fa-xl"></i></a>
-                     <a href="#" class="hover:text-black transition-colors"><i class="fab fa-twitter fa-xl"></i></a>
-                     <a href="#" class="hover:text-blue-700 transition-colors"><i class="fab fa-linkedin fa-xl"></i></a>
+                    <!-- Suffix -->
+                    <div class="font-medium ml-1 text-slate-600 responsive-email pt-2">.com</div>
                 </div>
 
             </div>
-             
-             <!-- Helper Text -->
-             <div class="text-center mt-12 text-xs text-slate-400 italic">
-                Tap bracket icons for WhatsApp or Call
-            </div>
-
         </div>
     </div>
 
     <!-- Notification Toast -->
-    <div id="toast">Email copied to clipboard!</div>
+    <div id="toast">Copied to clipboard!</div>
 
     <script>
         function copyEmail(domain) {
             const user = "habibulhaasan";
             const fullEmail = `${user}@${domain}`;
             
+            const toast = document.getElementById("toast");
+            toast.innerText = `Copied: ${fullEmail}`;
+            toast.className = "show";
+            setTimeout(() => toast.className = toast.className.replace("show", ""), 2500);
+
             if (navigator.clipboard && window.isSecureContext) {
-                navigator.clipboard.writeText(fullEmail).then(() => {
-                    showToast(`Copied: ${fullEmail}`);
-                }).catch(err => {
-                    fallbackCopy(fullEmail);
-                });
+                navigator.clipboard.writeText(fullEmail).catch(() => fallbackCopy(fullEmail));
             } else {
                 fallbackCopy(fullEmail);
             }
@@ -256,21 +315,25 @@
             document.body.appendChild(textArea);
             textArea.focus();
             textArea.select();
-            try {
-                document.execCommand('copy');
-                showToast(`Copied: ${text}`);
-            } catch (err) {
-                console.error('Fallback copy failed', err);
-            }
+            try { document.execCommand('copy'); } catch (e) {}
             document.body.removeChild(textArea);
         }
 
-        function showToast(message) {
-            const toast = document.getElementById("toast");
-            toast.textContent = message;
-            toast.className = "show";
-            setTimeout(function(){ toast.className = toast.className.replace("show", ""); }, 3000);
-        }
+        const card = document.getElementById('card');
+        document.addEventListener('mousemove', (e) => {
+            if (window.innerWidth > 768) {
+                const x = (window.innerWidth / 2 - e.pageX) / 40;
+                const y = (window.innerHeight / 2 - e.pageY) / 40;
+                card.style.transform = `rotateY(${x}deg) rotateX(${y}deg)`;
+            }
+        });
+        
+        document.addEventListener('mouseleave', () => {
+             if (window.innerWidth > 768) {
+                card.style.transform = `rotateY(0deg) rotateX(0deg)`;
+             }
+        });
+
     </script>
 </body>
 </html>
