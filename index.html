@@ -123,20 +123,28 @@
         /* Mobile Scale Utility - REFINED SIZES TO PREVENT OVERLAP */
         /* Reduced the minimum font size (the first value in clamp) to allow text to shrink more on mobile */
         .responsive-text { font-size: clamp(0.55rem, 1.4vw, 1rem); }
-        .responsive-header { font-size: clamp(0.85rem, 2.8vw, 2.4rem); } /* Min reduced from 0.9rem */
-        .responsive-sub { font-size: clamp(0.65rem, 1.5vw, 1.3rem); } /* Min reduced from 0.7rem */
-        .responsive-number { font-size: clamp(0.7rem, 1.9vw, 1.6rem); } /* Min reduced from 0.75rem */
-        .responsive-email { font-size: clamp(0.55rem, 1.3vw, 1.0rem); } /* Min reduced from 0.6rem */
+        .responsive-header { font-size: clamp(0.85rem, 2.8vw, 2.4rem); } /* Min reduced to 0.8rem */
+        .responsive-sub { font-size: clamp(0.65rem, 1.5vw, 1.3rem); } /* Min reduced to 0.6rem */
+        .responsive-number { font-size: clamp(0.7rem, 1.9vw, 1.6rem); } /* Min reduced to 0.65rem */
+        .responsive-email { font-size: clamp(0.55rem, 1.3vw, 1.0rem); } /* Min reduced to 0.55rem */
         .responsive-social { font-size: clamp(0.65rem, 1.4vw, 1.1rem); }
         .responsive-website { font-size: clamp(0.55rem, 1.3vw, 1.0rem); }
 
         /* Grid Areas for the Card */
         .card-layout {
             display: grid;
-            grid-template-columns: 35% 65%;
+            grid-template-columns: 38% 62%; /* Slightly more space for contact info (was 42/58) */
             grid-template-rows: auto 1fr;
             height: 100%;
-            column-gap: 30px; /* Increased gap from 20px to 30px */
+            column-gap: 8px; 
+        }
+
+        /* Desktop Adjustments for Grid */
+        @media (min-width: 768px) {
+            .card-layout {
+                grid-template-columns: 35% 65%; /* Restored desktop ratio */
+                column-gap: 30px; /* Restored desktop gap */
+            }
         }
 
         /* Animations */
@@ -197,7 +205,7 @@
                 <h1 class="font-serif-custom text-slate-800 font-extrabold uppercase responsive-header leading-tight whitespace-nowrap drop-shadow-sm">
                     Habibul Hasan Hasib
                 </h1>
-                <p class="text-slate-500 font-sans-custom responsive-sub mt-2 tracking-wide font-medium">
+                <p class="text-slate-500 font-sans-custom responsive-sub mt-0 tracking-wide font-medium">
                     Pharmacist
                 </p>
 
@@ -211,7 +219,8 @@
             </div>
 
             <!-- RIGHT COLUMN: Contact Info (Centered Vertically and Pushed Down) -->
-            <div class="flex flex-col justify-center md:justify-end h-full pl-4 gap-3 md:gap-4 pt-2 md:pb-6 pr-2 md:pr-4"> 
+            <!-- Adjusted spacing: pl-1 for safety, pr-2 to push email left -->
+            <div class="flex flex-col justify-center md:justify-end h-full pl-1 md:pl-4 gap-1 md:gap-4 pt-2 md:pb-6 pr-2 md:pr-4"> 
                 
                 <!-- 1. Numbers Block -->
                 <div class="flex justify-end items-center animate-right">
@@ -247,12 +256,12 @@
                 <div class="flex items-center justify-end animate-up">
                     
                     <!-- Handle & Social Icons Group -->
-                    <div class="relative flex flex-col items-end mr-2 justify-center">
+                    <div class="relative flex flex-col items-end mr-2 justify-center flex-shrink-0">
                         <!-- Handle -->
                         <div class="font-medium text-slate-600 responsive-email mb-0.5 pt-2">habibulhaasan@</div>
                         
                         <!-- Social Icons Row -->
-                        <div class="absolute top-full right-0 mt-1 flex gap-2 text-slate-400 justify-end w-max">
+                        <div class="absolute top-full right-0 mt-0 flex gap-2 text-slate-400 justify-end w-max">
                             <a href="https://facebook.com/habibulhaasan" target="_blank" class="social-icon-btn hover:text-blue-600" title="Facebook">
                                 <i class="fab fa-facebook responsive-social"></i>
                             </a>
@@ -269,10 +278,10 @@
                     </div>
                     
                     <!-- Left Curly Brace -->
-                    <div class="curly-brace-left w-4 md:w-5" style="height: clamp(80px, 20vw, 150px);"></div>
+                    <div class="curly-brace-left w-3 md:w-5 flex-shrink-0" style="height: clamp(80px, 20vw, 150px);"></div>
 
                     <!-- Email List -->
-                    <div class="flex flex-col justify-center px-2 text-slate-500 font-medium responsive-email w-32 md:w-40 pt-2 gap-1">
+                    <div class="flex flex-col justify-center px-1 text-slate-500 font-medium responsive-email w-auto pt-2 gap-1 flex-shrink-0">
                         <div class="email-provider gmail group" onclick="copyEmail('gmail.com')">
                             <i class="fab fa-google text-sm group-hover:text-[#EA4335] transition-colors"></i> gmail
                         </div>
@@ -291,10 +300,10 @@
                     </div>
 
                     <!-- Right Curly Brace -->
-                    <div class="curly-brace-right w-4 md:w-5" style="height: clamp(80px, 20vw, 150px);"></div>
+                    <div class="curly-brace-right w-3 md:w-5 flex-shrink-0" style="height: clamp(80px, 20vw, 150px);"></div>
 
                     <!-- Suffix -->
-                    <div class="font-medium ml-1 text-slate-600 responsive-email pt-2">.com</div>
+                    <div class="font-medium ml-1 text-slate-600 responsive-email pt-2 flex-shrink-0">.com</div>
                 </div>
 
             </div>
