@@ -6,6 +6,7 @@
     <title>Habibul Hasan Hasib - Digital Business Card</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;800&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
         /* Custom Font Setup */
@@ -120,22 +121,22 @@
         #toast.show { visibility: visible; opacity: 1; transform: translateX(-50%) translateY(0); bottom: 40px; }
 
         /* Mobile Scale Utility - REFINED SIZES TO PREVENT OVERLAP */
-        .responsive-text { font-size: clamp(0.7rem, 1.6vw, 1rem); }
-        
-        /* Hierarchy Adjustments - Tamed upper limits */
-        .responsive-header { font-size: clamp(1.1rem, 3.5vw, 2.8rem); } 
-        .responsive-sub { font-size: clamp(0.8rem, 1.8vw, 1.4rem); } 
-        .responsive-number { font-size: clamp(0.9rem, 2.2vw, 1.8rem); } 
-        .responsive-email { font-size: clamp(0.7rem, 1.6vw, 1.2rem); } 
-        .responsive-social { font-size: clamp(0.8rem, 1.5vw, 1.2rem); }
-        .responsive-website { font-size: clamp(0.7rem, 1.4vw, 1.1rem); }
+        /* Reduced the minimum font size (the first value in clamp) to allow text to shrink more on mobile */
+        .responsive-text { font-size: clamp(0.55rem, 1.4vw, 1rem); }
+        .responsive-header { font-size: clamp(0.85rem, 2.8vw, 2.4rem); } /* Min reduced from 0.9rem */
+        .responsive-sub { font-size: clamp(0.65rem, 1.5vw, 1.3rem); } /* Min reduced from 0.7rem */
+        .responsive-number { font-size: clamp(0.7rem, 1.9vw, 1.6rem); } /* Min reduced from 0.75rem */
+        .responsive-email { font-size: clamp(0.55rem, 1.3vw, 1.0rem); } /* Min reduced from 0.6rem */
+        .responsive-social { font-size: clamp(0.65rem, 1.4vw, 1.1rem); }
+        .responsive-website { font-size: clamp(0.55rem, 1.3vw, 1.0rem); }
 
-        /* Grid Areas for the Card - Adjusted ratio */
+        /* Grid Areas for the Card */
         .card-layout {
             display: grid;
-            grid-template-columns: 40% 60%;
+            grid-template-columns: 35% 65%;
             grid-template-rows: auto 1fr;
             height: 100%;
+            column-gap: 30px; /* Increased gap from 20px to 30px */
         }
 
         /* Animations */
@@ -162,12 +163,24 @@
         .social-icon-btn:hover {
             transform: translateY(-3px) scale(1.1);
         }
+
+        /* Download Button Animation */
+        .download-btn {
+            animation: bounceIn 1s ease-out 1s forwards;
+            opacity: 0;
+            transform: scale(0.5);
+        }
+        @keyframes bounceIn {
+            0% { opacity: 0; transform: scale(0.5); }
+            60% { opacity: 1; transform: scale(1.1); }
+            100% { opacity: 1; transform: scale(1); }
+        }
     </style>
 </head>
 <body class="bg-gray-200 min-h-screen flex items-center justify-center p-2 md:p-6 overflow-hidden perspective-1000">
 
-    <!-- Card Container - Reduced max-width for tighter layout -->
-    <div id="card" class="bg-texture relative w-full max-w-[700px] aspect-[1.85/1] rounded-xl shadow-2xl overflow-hidden border border-gray-300">
+    <!-- Card Container - Reverted to Rounded-Rect (rounded-[30px]) -->
+    <div id="card" class="bg-texture relative w-full max-w-[800px] aspect-[1.85/1] rounded-[30px] shadow-2xl overflow-hidden border border-gray-300">
         
         <!-- Background Swoosh (SVG) -->
         <div class="absolute inset-0 pointer-events-none z-0 opacity-40">
@@ -176,10 +189,11 @@
             </svg>
         </div>
 
-        <div class="card-layout relative z-10 w-full h-full p-4 md:p-8">
+        <!-- Balanced Padding - Reduced mobile padding to p-4 to maximize internal space -->
+        <div class="card-layout relative z-10 w-full h-full p-4 md:p-12">
             
             <!-- TOP LEFT: Name & Identity (Stays in corner) -->
-            <div class="flex flex-col justify-start pt-2 md:pt-4 pl-1 md:pl-2 animate-left">
+            <div class="flex flex-col justify-start pt-1 md:pt-2 pl-1 animate-left">
                 <h1 class="font-serif-custom text-slate-800 font-extrabold uppercase responsive-header leading-tight whitespace-nowrap drop-shadow-sm">
                     Habibul Hasan Hasib
                 </h1>
@@ -197,7 +211,7 @@
             </div>
 
             <!-- RIGHT COLUMN: Contact Info (Centered Vertically and Pushed Down) -->
-            <div class="flex flex-col justify-center md:justify-end h-full pl-2 gap-2 md:gap-4 pt-2 md:pb-8"> 
+            <div class="flex flex-col justify-center md:justify-end h-full pl-4 gap-3 md:gap-4 pt-2 md:pb-6 pr-2 md:pr-4"> 
                 
                 <!-- 1. Numbers Block -->
                 <div class="flex justify-end items-center animate-right">
@@ -287,6 +301,11 @@
         </div>
     </div>
 
+    <!-- Floating Download Button -->
+    <button onclick="downloadCard()" class="download-btn fixed bottom-6 right-6 md:bottom-10 md:right-10 bg-slate-800 text-white p-4 rounded-full shadow-xl hover:bg-slate-700 hover:scale-110 transition-all z-50 flex items-center justify-center group" title="Download Card as JPEG">
+        <i class="fas fa-download text-xl group-hover:animate-bounce"></i>
+    </button>
+
     <!-- Notification Toast -->
     <div id="toast">Copied to clipboard!</div>
 
@@ -333,6 +352,67 @@
                 card.style.transform = `rotateY(0deg) rotateX(0deg)`;
              }
         });
+
+        function downloadCard() {
+            const cardElement = document.getElementById('card');
+            const downloadBtn = document.querySelector('.download-btn');
+
+            // 1. Hide button temporarily
+            downloadBtn.style.display = 'none';
+
+            // 2. Snapshot state
+            const originalTransform = cardElement.style.transform;
+            const originalBoxShadow = cardElement.style.boxShadow;
+            
+            // 3. Prepare for capture: Reset transforms and animations
+            cardElement.style.transform = "none";
+            cardElement.classList.remove('shadow-2xl');
+            
+            const animatedElements = cardElement.querySelectorAll('.animate-left, .animate-right, .animate-up');
+            animatedElements.forEach(el => {
+                el.dataset.originalClasses = el.className;
+                el.dataset.originalOpacity = el.style.opacity;
+                el.dataset.originalTransform = el.style.transform;
+
+                el.classList.remove('animate-left', 'animate-right', 'animate-up');
+                el.style.opacity = '1';
+                el.style.transform = 'none';
+            });
+
+            // 4. Capture with Window Dimensions forced
+            html2canvas(cardElement, {
+                scale: 3, 
+                useCORS: true,
+                allowTaint: true,
+                backgroundColor: "#ffffff", // Use white so corners outside the rounded card are clean for JPEG
+                logging: false,
+                windowWidth: window.innerWidth, // CRITICAL: This ensures fonts/layout match your screen exactly
+                windowHeight: window.innerHeight
+            }).then(canvas => {
+                const link = document.createElement('a');
+                link.download = 'habibul-hasan-card.jpeg';
+                link.href = canvas.toDataURL("image/jpeg", 0.95);
+                link.click();
+            }).catch(err => {
+                console.error("Download failed:", err);
+                alert("Failed to download card. Please try again.");
+            }).finally(() => {
+                // 5. Restore state
+                downloadBtn.style.display = 'flex';
+                cardElement.style.transform = originalTransform;
+                cardElement.classList.add('shadow-2xl');
+                cardElement.style.boxShadow = originalBoxShadow;
+                
+                animatedElements.forEach(el => {
+                    el.className = el.dataset.originalClasses;
+                    if (el.dataset.originalOpacity !== undefined) el.style.opacity = el.dataset.originalOpacity;
+                    if (el.dataset.originalTransform !== undefined) el.style.transform = el.dataset.originalTransform;
+                    delete el.dataset.originalClasses;
+                    delete el.dataset.originalOpacity;
+                    delete el.dataset.originalTransform;
+                });
+            });
+        }
 
     </script>
 </body>
