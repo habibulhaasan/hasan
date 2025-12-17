@@ -53,7 +53,7 @@
             display: grid;
             grid-template-columns: auto auto auto;
             grid-template-rows: 15px auto 15px;
-            column-gap: 5px; 
+            column-gap: 1px; 
             align-items: center;
         }
         
@@ -96,7 +96,6 @@
             justify-content: center;
             z-index: 20;
         }
-        /* Adjusted positioning to exactly center on the border line */
         .top-icon { top: -13px; }
         .bottom-icon { bottom: -13px; }
 
@@ -121,20 +120,19 @@
         }
         #toast.show { visibility: visible; opacity: 1; transform: translateX(-50%) translateY(0); bottom: 40px; }
 
-        /* Mobile Scale Utility - REFINED SIZES TO PREVENT OVERLAP */
-        /* Reduced the minimum font size (the first value in clamp) to allow text to shrink more on mobile */
+        /* Mobile Scale Utility */
         .responsive-text { font-size: clamp(0.55rem, 1.4vw, 1rem); }
-        .responsive-header { font-size: clamp(0.85rem, 2.8vw, 2.4rem); } /* Min reduced to 0.8rem */
-        .responsive-sub { font-size: clamp(0.65rem, 1.5vw, 1.3rem); } /* Min reduced to 0.6rem */
-        .responsive-number { font-size: clamp(0.7rem, 1.9vw, 1.6rem); } /* Min reduced to 0.65rem */
-        .responsive-email { font-size: clamp(0.55rem, 1.3vw, 1.0rem); } /* Min reduced to 0.55rem */
+        .responsive-header { font-size: clamp(0.85rem, 2.8vw, 2.4rem); } 
+        .responsive-sub { font-size: clamp(0.65rem, 1.5vw, 1.3rem); } 
+        .responsive-number { font-size: clamp(0.7rem, 1.9vw, 1.6rem); } 
+        .responsive-email { font-size: clamp(0.55rem, 1.3vw, 1.0rem); } 
         .responsive-social { font-size: clamp(0.65rem, 1.4vw, 1.1rem); }
         .responsive-website { font-size: clamp(0.55rem, 1.3vw, 1.0rem); }
 
         /* Grid Areas for the Card */
         .card-layout {
             display: grid;
-            grid-template-columns: 38% 62%; /* Slightly more space for contact info (was 42/58) */
+            grid-template-columns: 38% 62%;
             grid-template-rows: auto 1fr;
             height: 100%;
             column-gap: 8px; 
@@ -143,8 +141,8 @@
         /* Desktop Adjustments for Grid */
         @media (min-width: 768px) {
             .card-layout {
-                grid-template-columns: 35% 65%; /* Restored desktop ratio */
-                column-gap: 30px; /* Restored desktop gap */
+                grid-template-columns: 35% 65%;
+                column-gap: 30px;
             }
         }
 
@@ -188,20 +186,20 @@
 </head>
 <body class="bg-gray-200 min-h-screen flex items-center justify-center p-2 md:p-6 overflow-hidden perspective-1000">
 
-    <!-- Card Container - Reverted to Rounded-Rect (rounded-[30px]) -->
+    <!-- Card Container -->
     <div id="card" class="bg-texture relative w-full max-w-[800px] aspect-[1.85/1] rounded-[30px] shadow-2xl overflow-hidden border border-gray-300">
         
-        <!-- Background Swoosh (SVG) -->
+        <!-- Background Swoosh -->
         <div class="absolute inset-0 pointer-events-none z-0 opacity-40">
             <svg class="w-full h-full" viewBox="0 0 500 280" preserveAspectRatio="none">
                 <path d="M-10,120 Q250,80 510,130" fill="none" stroke="#94a3b8" stroke-width="1.5" />
             </svg>
         </div>
 
-        <!-- Balanced Padding - Reduced mobile padding to p-4 to maximize internal space -->
+        <!-- Balanced Padding -->
         <div class="card-layout relative z-10 w-full h-full p-4 md:p-12">
             
-            <!-- TOP LEFT: Name & Identity (Stays in corner) -->
+            <!-- TOP LEFT: Name & Identity -->
             <div class="flex flex-col justify-start pt-1 md:pt-2 pl-1 animate-left">
                 <h1 class="font-serif-custom text-slate-800 font-extrabold uppercase responsive-header leading-tight whitespace-nowrap drop-shadow-sm">
                     Habibul Hasan Hasib
@@ -211,7 +209,7 @@
                 </p>
 
                 <!-- Website Address -->
-                <div class="mt-4 md:mt-6 animate-up" style="animation-delay: 0.6s;">
+                <div class="mt-3 md:mt-6 animate-up" style="animation-delay: 0.6s;">
                     <a href="https://habibulhasan.art.blog" target="_blank" class="flex items-center gap-2 text-slate-500 hover:text-slate-800 transition-colors group w-max">
                         <i class="fas fa-globe responsive-website group-hover:rotate-12 transition-transform text-slate-400 group-hover:text-slate-600"></i>
                         <span class="font-sans-custom responsive-website font-medium border-b border-transparent group-hover:border-slate-800 transition-colors">habibulhasan.art.blog</span>
@@ -219,8 +217,7 @@
                 </div>
             </div>
 
-            <!-- RIGHT COLUMN: Contact Info (Centered Vertically and Pushed Down) -->
-            <!-- Adjusted spacing: pl-1 for safety, pr-2 to push email left -->
+            <!-- RIGHT COLUMN: Contact Info -->
             <div class="flex flex-col justify-center md:justify-end h-full pl-1 md:pl-4 gap-1 md:gap-4 pt-2 md:pb-6 pr-2 md:pr-4"> 
                 
                 <!-- 1. Numbers Block -->
@@ -237,9 +234,9 @@
                         <div></div> 
 
                         <!-- Numbers -->
-                        <div class="font-sans-custom text-slate-700 font-bold tracking-wide responsive-number px-1 group-hover:text-slate-900 transition-colors">016</div>
+                        <div class="font-sans-custom text-slate-700 font-bold tracking-wide responsive-number group-hover:text-slate-900 transition-colors">016</div>
                         <div class="font-sans-custom text-slate-700 font-bold tracking-wide responsive-number px-1 group-hover:text-slate-900 transition-colors">01767234</div>
-                        <div class="font-sans-custom text-slate-700 font-bold tracking-wide responsive-number px-1 group-hover:text-slate-900 transition-colors">671</div>
+                        <div class="font-sans-custom text-slate-700 font-bold tracking-wide responsive-number group-hover:text-slate-900 transition-colors">671</div>
 
                         <!-- Bottom Bracket (Phone) -->
                         <div></div> 
@@ -292,7 +289,7 @@
                         <div class="email-provider hotmail group" onclick="copyEmail('hotmail.com')">
                             <i class="fas fa-envelope text-sm group-hover:text-[#0078D4] transition-colors"></i> hotmail
                         </div>
-                        <div class="email-provider outlook group" onclick="copyEmail('microsoft.com')">
+                        <div class="email-provider outlook group" onclick="copyEmail('outlook.com')">
                             <i class="fab fa-microsoft text-sm group-hover:text-[#0078D4] transition-colors"></i> outlook
                         </div>
                         <div class="email-provider proton group" onclick="copyEmail('protonmail.com')">
@@ -367,37 +364,87 @@
             const cardElement = document.getElementById('card');
             const downloadBtn = document.querySelector('.download-btn');
 
-            // 1. Hide button temporarily
+            // 1. Hide button
             downloadBtn.style.display = 'none';
 
-            // 2. Snapshot state
+            // 2. Snapshot current state
             const originalTransform = cardElement.style.transform;
             const originalBoxShadow = cardElement.style.boxShadow;
             
-            // 3. Prepare for capture: Reset transforms and animations
+            // Calculate current font sizes to freeze them
+            // We specifically target elements with our responsive classes
+            const responsiveSelectors = [
+                '.responsive-text', 
+                '.responsive-header', 
+                '.responsive-sub', 
+                '.responsive-number', 
+                '.responsive-email', 
+                '.responsive-social', 
+                '.responsive-website'
+            ];
+            
+            const elementsToFreeze = [];
+            
+            responsiveSelectors.forEach(selector => {
+                cardElement.querySelectorAll(selector).forEach(el => {
+                    elementsToFreeze.push({
+                        element: el,
+                        fontSize: window.getComputedStyle(el).fontSize
+                    });
+                });
+            });
+
+            // 3. Prepare for capture
             cardElement.style.transform = "none";
             cardElement.classList.remove('shadow-2xl');
             
+            // Reset animations
             const animatedElements = cardElement.querySelectorAll('.animate-left, .animate-right, .animate-up');
             animatedElements.forEach(el => {
                 el.dataset.originalClasses = el.className;
                 el.dataset.originalOpacity = el.style.opacity;
                 el.dataset.originalTransform = el.style.transform;
-
                 el.classList.remove('animate-left', 'animate-right', 'animate-up');
                 el.style.opacity = '1';
                 el.style.transform = 'none';
             });
 
-            // 4. Capture with Window Dimensions forced
+            // 4. Capture
             html2canvas(cardElement, {
                 scale: 3, 
                 useCORS: true,
                 allowTaint: true,
-                backgroundColor: "#ffffff", // Use white so corners outside the rounded card are clean for JPEG
+                backgroundColor: "#f7f5f0", 
                 logging: false,
-                windowWidth: window.innerWidth, // CRITICAL: This ensures fonts/layout match your screen exactly
-                windowHeight: window.innerHeight
+                windowWidth: window.innerWidth,
+                windowHeight: window.innerHeight,
+                onclone: (clonedDoc) => {
+                    const clonedCard = clonedDoc.getElementById('card');
+                    
+                    // Freeze Layout on Clone
+                    if (clonedCard) {
+                        clonedCard.style.width = cardElement.offsetWidth + 'px';
+                        clonedCard.style.height = cardElement.offsetHeight + 'px';
+                        clonedCard.style.maxWidth = 'none';
+                        clonedCard.style.margin = '0';
+                        clonedCard.style.padding = window.getComputedStyle(cardElement).padding;
+                    }
+
+                    // Apply frozen font sizes to cloned elements
+                    // We need to find the matching elements in the cloned document
+                    // Since the DOM structure is identical, we can map by index if strict, 
+                    // but querySelectorAll returns in document order so it's safe here.
+                    responsiveSelectors.forEach(selector => {
+                        const originalEls = cardElement.querySelectorAll(selector);
+                        const clonedEls = clonedDoc.querySelectorAll(selector);
+                        
+                        originalEls.forEach((el, index) => {
+                            if (clonedEls[index]) {
+                                clonedEls[index].style.fontSize = window.getComputedStyle(el).fontSize;
+                            }
+                        });
+                    });
+                }
             }).then(canvas => {
                 const link = document.createElement('a');
                 link.download = 'habibul-hasan-card.jpeg';
@@ -407,7 +454,7 @@
                 console.error("Download failed:", err);
                 alert("Failed to download card. Please try again.");
             }).finally(() => {
-                // 5. Restore state
+                // 5. Restore
                 downloadBtn.style.display = 'flex';
                 cardElement.style.transform = originalTransform;
                 cardElement.classList.add('shadow-2xl');
